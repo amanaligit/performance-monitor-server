@@ -42,10 +42,10 @@ if (cluster.isMaster) {
             spawn(i);
         });
     };
-    console.log("processors", num_processes)
 
     // Spawn workers.
     for (var i = 0; i < num_processes; i++) {
+        console.log("spawning", i)
         spawn(i);
     }
 
