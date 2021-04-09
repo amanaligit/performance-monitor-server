@@ -30,7 +30,7 @@ if (cluster.isMaster) {
     // for example.
     setTimeout(() => {
 
-        let workers = [1];
+        let workers = [];
         // workers.length = process.env.WEB_CONCURRENCY || 1;
 
         // Helper function for spawning worker at index 'i'.
