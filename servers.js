@@ -22,7 +22,7 @@ const port = process.env.PORT || 8181;
 // check to see if it's running -- redis-cli monitor
 const io_redis = require('socket.io-redis');
 const redis = require('redis');
-const farmhash = require('farmhash');
+const hash = require('string-hash-64');
 
 if (cluster.isMaster) {
     // This stores our workers. We need to keep them to be able to reference
@@ -31,7 +31,6 @@ if (cluster.isMaster) {
     setTimeout(() => {
 
         let workers = [];
-        // workers.length = process.env.WEB_CONCURRENCY || 1;
 
         // Helper function for spawning worker at index 'i'.
         let spawn = function (i) {
@@ -61,7 +60,7 @@ if (cluster.isMaster) {
         // "real" IP number conversion, this function is on par in terms of
         // worker index distribution only much faster.
         const worker_index = function (ip, len) {
-            return 0; // Farmhash is the fastest and works with IPv6, too
+            return hash(ip) % len; // Farmhash is the fastest and works with IPv6, too
         };
 
 
