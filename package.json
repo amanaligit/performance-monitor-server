@@ -2,11 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "servers.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon servers.js",
-    "start": "node servers.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Aman Ali",
@@ -20,7 +20,8 @@
     "redis-url": "^1.2.1",
     "socket.io": "^4.0.1",
     "socket.io-redis": "^6.1.0",
-    "string-hash-64": "^1.0.3"
+    "string-hash-64": "^1.0.3",
+    "socket.io-client": "^4.0.1"
   },
   "engines": {
     "node": "14.15.3",

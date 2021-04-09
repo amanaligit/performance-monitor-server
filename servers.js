@@ -38,7 +38,6 @@ if (cluster.isMaster) {
 
             // Optional: Restart worker on exit
             workers[i].on('exit', function (code, signal) {
-                // console.log('respawning worker', i);
                 spawn(i);
             });
         };
@@ -46,7 +45,6 @@ if (cluster.isMaster) {
         console.log(process.env.WEB_CONCURRENCY)
         // Spawn workers.
         for (var i = 0; i < (process.env.WEB_CONCURRENCY || 1); i++) {
-            console.log("spawning", i)
             spawn(i);
         }
 
@@ -79,7 +77,6 @@ if (cluster.isMaster) {
         console.log(`Master listening on port ${port}`);
     }, 0)
 } else {
-    console.log(`established: ${cluster.worker.id}`);
     // Note we don't use a port here because the master listens on it for us.
     let app = express();
     app.use(express.static(__dirname + '/build'));
@@ -87,7 +84,6 @@ if (cluster.isMaster) {
 
     // Don't expose our internal server to the outside world.
     const server = app.listen(0);
-    // console.log("Worker listening...");    
     const io = socketio(server, {
         cors: {
             origin: '*',
