@@ -15,10 +15,7 @@ const net = require('net');
 const socketio = require('socket.io');
 const helmet = require('helmet')
 const socketMain = require('./socketMain');
-// const expressMain = require('./expressMain');
-
 const port = process.env.PORT || 8181;
-const num_processes = require('os').cpus().length;
 // Brew breaks for me more than it solves a problem, so I 
 // installed redis from https://redis.io/topics/quickstart
 // have to actually run redis via: $ redis-server (go to location of the binary)
@@ -47,10 +44,10 @@ if (cluster.isMaster) {
         };
         console.log(process.env.WEB_CONCURRENCY)
         // Spawn workers.
-        for (var i = 0; i < (process.env.WEB_CONCURRENCY || 1); i++) {
-            console.log("spawning", i)
-            spawn(i);
-        }
+        // for (var i = 0; i < (process.env.WEB_CONCURRENCY || 1); i++) {
+        //     console.log("spawning", i)
+        //     spawn(i);
+        // }
 
 
         // Helper function for getting a worker index based on IP address.
