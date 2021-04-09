@@ -17,7 +17,7 @@ const helmet = require('helmet')
 const socketMain = require('./socketMain');
 // const expressMain = require('./expressMain');
 
-const port = 8181;
+const port = process.env.PORT || 8181;
 const num_processes = require('os').cpus().length;
 // Brew breaks for me more than it solves a problem, so I 
 // installed redis from https://redis.io/topics/quickstart

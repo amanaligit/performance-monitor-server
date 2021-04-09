@@ -5,7 +5,8 @@
   "main": "servers.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon servers.js"
+    "dev": "nodemon servers.js",
+    "start": "node servers.js"
   },
   "keywords": [],
   "author": "Aman Ali",
