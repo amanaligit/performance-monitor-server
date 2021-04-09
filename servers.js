@@ -24,6 +24,8 @@ const num_processes = require('os').cpus().length;
 // have to actually run redis via: $ redis-server (go to location of the binary)
 // check to see if it's running -- redis-cli monitor
 const io_redis = require('socket.io-redis');
+const redis = require('redis');
+
 const farmhash = require('farmhash');
 
 if (cluster.isMaster) {
@@ -77,7 +79,6 @@ if (cluster.isMaster) {
     server.listen(port);
     console.log(`Master listening on port ${port}`);
 } else {
-    console.log('running worker')
     // Note we don't use a port here because the master listens on it for us.
     let app = express();
     app.use(express.static(__dirname + '/build'));
@@ -96,7 +97,9 @@ if (cluster.isMaster) {
     // server is assumed to be on localhost:6379. You don't have to
     // specify them explicitly unless you want to change them.
     // redis-cli monitor
-    io.adapter(io_redis({ host: process.env.REDISTOGO_URL, port: 6379 }));
+    const pubClient = redis.createClient(11635, "scat.redistogo.com", { auth_pass: process.env.REDIS_PASSWORD });
+    const subClient = pubClient.duplicate();
+    io.adapter(io_redis({ pubClient, subClient }));
 
     // Here you might use Socket.IO middleware for authorization etc.
     // on connection, send the socket over to our module with socket stuff
