@@ -61,7 +61,7 @@ if (cluster.isMaster) {
         // "real" IP number conversion, this function is on par in terms of
         // worker index distribution only much faster.
         const worker_index = function (ip, len) {
-            return farmhash.fingerprint32(ip) % len; // Farmhash is the fastest and works with IPv6, too
+            return 0; // Farmhash is the fastest and works with IPv6, too
         };
 
 
