@@ -45,7 +45,7 @@ if (cluster.isMaster) {
     };
 
     // Spawn workers.
-    for (var i = 0; i < num_processes; i++) {
+    for (var i = 0; i < process.env.WEB_CONCURRENCY; i++) {
         console.log("spawning", i)
         spawn(i);
     }
@@ -72,7 +72,7 @@ if (cluster.isMaster) {
         // We received a connection and need to pass it to the appropriate
         // worker. Get the worker for this connection's source IP and pass
         // it the connection.
-        let worker = workers[worker_index(connection.remoteAddress, num_processes)];
+        let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY)];
         worker.send('sticky-session:connection', connection);
     });
     server.listen(port);
