@@ -43,9 +43,9 @@ if (cluster.isMaster) {
             spawn(i);
         });
     };
-
+    console.log(process.env.WEB_CONCURRENCY)
     // Spawn workers.
-    for (var i = 0; i < process.env.WEB_CONCURRENCY; i++) {
+    for (var i = 0; i < (process.env.WEB_CONCURRENCY || 1); i++) {
         console.log("spawning", i)
         spawn(i);
     }
@@ -72,7 +72,7 @@ if (cluster.isMaster) {
         // We received a connection and need to pass it to the appropriate
         // worker. Get the worker for this connection's source IP and pass
         // it the connection.
-        let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY)];
+        let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY || 1)];
         worker.send('sticky-session:connection', connection);
     });
     server.listen(port);
@@ -85,7 +85,7 @@ if (cluster.isMaster) {
     app.use(helmet());
 
     // Don't expose our internal server to the outside world.
-    const server = app.listen(0, 'localhost');
+    const server = app.listen(0);
     // console.log("Worker listening...");    
     const io = socketio(server, {
         cors: {
