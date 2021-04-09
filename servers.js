@@ -79,7 +79,7 @@ if (cluster.isMaster) {
         });
         server.listen(port);
         console.log(`Master listening on port ${port}`);
-    }, 5000)
+    }, 0)
 } else {
     console.log(`established: ${cluster.worker.id}`);
     // Note we don't use a port here because the master listens on it for us.
