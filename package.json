@@ -12,7 +12,6 @@
   "author": "Aman Ali",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "farmhash": "^3.2.1",
     "helmet": "^4.4.1",
