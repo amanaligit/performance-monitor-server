@@ -46,7 +46,7 @@ if (cluster.isMaster) {
     };
 
     // Spawn workers.
-    for (var i = 0; i < num_processes; i++) {
+    for (var i = 0; i < 4; i++) {
         console.log("spawning", i)
         spawn(i);
     }
