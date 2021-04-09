@@ -71,8 +71,8 @@ if (cluster.isMaster) {
             // We received a connection and need to pass it to the appropriate
             // worker. Get the worker for this connection's source IP and pass
             // it the connection.
-            let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY || 1)];
-            worker.send('sticky-session:connection', connection);
+            // let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY || 1)];
+            // worker.send('sticky-session:connection', connection);
         });
         server.listen(port);
         console.log(`Master listening on port ${port}`);
