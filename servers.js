@@ -42,11 +42,13 @@ if (cluster.isMaster) {
             spawn(i);
         });
     };
+    console.log("processors", num_processes)
 
     // Spawn workers.
     for (var i = 0; i < num_processes; i++) {
         spawn(i);
     }
+
 
     // Helper function for getting a worker index based on IP address.
     // This is a hot path so it should be really fast. The way it works
