@@ -31,6 +31,7 @@ if (cluster.isMaster) {
     setTimeout(() => {
 
         let workers = [];
+        workers.length = process.env.WEB_CONCURRENCY || 1;
 
         // Helper function for spawning worker at index 'i'.
         let spawn = function (i) {
@@ -44,10 +45,10 @@ if (cluster.isMaster) {
         };
         console.log(process.env.WEB_CONCURRENCY)
         // Spawn workers.
-        // for (var i = 0; i < (process.env.WEB_CONCURRENCY || 1); i++) {
-        //     console.log("spawning", i)
-        //     spawn(i);
-        // }
+        for (var i = 0; i < (process.env.WEB_CONCURRENCY || 1); i++) {
+            console.log("spawning", i)
+            spawn(i);
+        }
 
 
         // Helper function for getting a worker index based on IP address.
@@ -71,8 +72,8 @@ if (cluster.isMaster) {
             // We received a connection and need to pass it to the appropriate
             // worker. Get the worker for this connection's source IP and pass
             // it the connection.
-            // let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY || 1)];
-            // worker.send('sticky-session:connection', connection);
+            let worker = workers[worker_index(connection.remoteAddress, process.env.WEB_CONCURRENCY || 1)];
+            worker.send('sticky-session:connection', connection);
         });
         server.listen(port);
         console.log(`Master listening on port ${port}`);
