@@ -100,7 +100,11 @@ if (cluster.isMaster) {
     // server is assumed to be on localhost:6379. You don't have to
     // specify them explicitly unless you want to change them.
     // redis-cli monitor
-    const pubClient = redis.createClient(16569, "ec2-34-202-241-111.compute-1.amazonaws.com", { auth_pass: process.env.REDIS_PASSWORD });
+    const pubClient = redis.createClient(process.env.REDIS_URL, {
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
     const subClient = pubClient.duplicate();
     io.adapter(io_redis({ pubClient, subClient }));
 
