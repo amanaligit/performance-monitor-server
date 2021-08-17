@@ -1,2 +1,1 @@
-require('./self-perf');
-require('./servers');
+require("./servers");
